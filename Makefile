@@ -3,7 +3,7 @@ CFLAGS = -g -Wall
 
 INC=./include
 
-MAIN=./src/main.cpp
+MAIN=./src/*
 
 main:
 	$(CC) $(CFLAGS) -I$(INC) $(MAIN)
