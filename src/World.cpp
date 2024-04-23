@@ -16,7 +16,6 @@ uint64_t World::currentTime() {
     return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 };
 
-
 void World::add(Rigidbody obj) {
     this->objects.push_back(obj);
 }
@@ -34,7 +33,7 @@ void World::render() {
         glBegin(GL_POLYGON);
         glColor3f(obj.color[0],obj.color[1],obj.color[2]);
         for (Vec2 v : obj.getVertices()) {
-            glVertex2d(v.x,v.y);
+            glVertex2d(v.x/100,v.y/100);
         }
         glEnd();
     }

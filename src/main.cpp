@@ -33,7 +33,8 @@ int main(void) {
 
     auto w = World();
 
-    Rigidbody rock = Rigidbody{{0,0},{0,0.5},{0.5,0.5},{0.5,0}};
+    Rigidbody rock = Rigidbody{{-10,0},{10,0},{0,10}};
+    rock.setColor(1, 1, 0.2);
 
     w.add(rock);
     go(w);

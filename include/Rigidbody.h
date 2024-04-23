@@ -12,6 +12,8 @@ class Rigidbody {
         std::vector<Vec2> getVertices();
         float color[3] = {1,1,1};
 
+        void setColor(float r, float g, float b);
+
     private:
         std::vector<Vec2> vertices;
 
