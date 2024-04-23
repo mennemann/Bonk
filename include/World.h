@@ -11,6 +11,7 @@ class World {
     public:
         World();
         void step();
+        void render();
         void add(Rigidbody obj);
 
     private:
