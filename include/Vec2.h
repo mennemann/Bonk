@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+
+#ifndef Vec2_H
+#define Vec2_H
+
 class Vec2 {
     public:
         double x;
@@ -20,3 +24,5 @@ class Vec2 {
         }
 };
 
+
+#endif
