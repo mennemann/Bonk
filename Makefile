@@ -1,9 +1,8 @@
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -std=c++11
 
-INC=./include
 
-MAIN=./src/*
+MAIN=./src/*.cpp
 
 main:
-	$(CC) $(CFLAGS) -I$(INC) $(MAIN)
+	$(CC) $(CFLAGS) -I./include -L./lib $(MAIN) -lglfw3dll
