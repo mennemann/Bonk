@@ -10,6 +10,7 @@ class Vec2 {
         double x;
         double y;
 
+        Vec2();
         Vec2(double x, double y);
 
         Vec2 operator+(Vec2 const& other);
