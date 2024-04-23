@@ -9,6 +9,8 @@
 class Rigidbody {
     public:
         Rigidbody(std::initializer_list<Vec2> vertices);
+        std::vector<Vec2> getVertices();
+        float color[3] = {255,255,255};
 
     private:
         std::vector<Vec2> vertices;

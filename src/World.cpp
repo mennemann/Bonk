@@ -17,6 +17,11 @@ uint64_t World::currentTime() {
 };
 
 
+void World::add(Rigidbody obj) {
+    this->objects.push_back(obj);
+}
+
+
 void World::step() {
     uint64_t delta_time = currentTime() - this->last_step;
 
@@ -25,10 +30,12 @@ void World::step() {
 
 
 void World::render() {
+    for (Rigidbody obj : this->objects) {
         glBegin(GL_POLYGON);
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f(0.5f, -0.5f);
-        glVertex2f(0.0f, 0.5f);
-        glVertex2f(0.0f, 0.6f);
+        glColor3f(obj.color[0],obj.color[1],obj.color[2]);
+        for (Vec2 v : obj.getVertices()) {
+            glVertex2d(v.x,v.y);
+        }
         glEnd();
+    }
 }
