@@ -1,4 +1,5 @@
 #include "World.h"
+
 #include <stdint.h>
 
 #include <iostream>
@@ -6,6 +7,10 @@
 
 using namespace std;
 
+
+World::World() {
+    this->last_step = this->currentTime();
+}
 
 void World::step() {
     uint64_t delta_time = currentTime() - this->last_step;

@@ -1,6 +1,7 @@
 #include <vector>
 #include <stdint.h>
 
+#include "Rigidbody.h"
 
 #ifndef World_H
 #define World_H
@@ -8,12 +9,14 @@
 class World {
     
     public:
+        World();
         void step();
-        uint64_t currentTime();
+        void add(Rigidbody obj);
 
     private:
-        std::vector<int> objects;
+        std::vector<Rigidbody> objects;
         uint64_t last_step;
+        uint64_t currentTime();
 
 };
 
