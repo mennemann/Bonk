@@ -36,6 +36,9 @@ int main(void) {
     Rigidbody rock = Rigidbody{{-10,0},{10,0},{0,10}};
     rock.setColor(1, 1, 0.2);
 
+    rock.velocity = Vec2(0,10);
+    rock.force = Vec2(0,-1);
+
     w.add(rock);
     go(w);
 
