@@ -42,7 +42,7 @@ void World::step() {
 
     int i,j,N;
     N = this->objects.size();
-    
+
     auto mm = (struct max_min*)malloc(N*sizeof(struct max_min));
     for (i = 0; i<N; i++) mm[i] = this->objects[i].getMaxMin();
 
@@ -55,7 +55,7 @@ void World::step() {
         }
     }
 
-
+    free(mm);
 
 
 
