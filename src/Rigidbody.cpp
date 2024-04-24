@@ -7,14 +7,10 @@ Rigidbody::Rigidbody(std::initializer_list<Vec2> vertices) {
 
 Vec2 Rigidbody::getCenter() {
     Vec2 sum;
-
     for (Vec2 v : this->vertices) {
         sum += v;
     }
-
-    sum *= 1/this->vertices.size();
-
-    return sum;
+    return sum* ((double)1/this->vertices.size());
 }
 
 void Rigidbody::setColor(float r, float g, float b) {

@@ -19,6 +19,8 @@ public:
     Vec2 velocity;
     Vec2 force;
     double mass = 1;
+    double ang_velocity = 0;
+    double torque = 0;
 };
 
 

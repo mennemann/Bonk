@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <chrono>
+#include <math.h>
 
 using namespace std;
 
@@ -31,9 +32,36 @@ void World::step() {
     for (Rigidbody& obj : this->objects) {
 
         obj.velocity += obj.force*(1/obj.mass)*delta_time;
+        obj.ang_velocity += obj.torque/obj.mass*delta_time;
 
         for (Vec2& v : obj.vertices) {
             v+=obj.velocity*delta_time;
+        }
+
+        Vec2 center = obj.getCenter();
+        for (Vec2& v : obj.vertices) {
+            v.x = cos(obj.ang_velocity*delta_time)*(v.x-center.x)-sin(obj.ang_velocity*delta_time)*(v.y-center.y)+center.x;
+            v.y = sin(obj.ang_velocity*delta_time)*(v.x-center.x)+cos(obj.ang_velocity*delta_time)*(v.y-center.y)+center.y;
+        }
+
+
+        for (Vec2& v : obj.vertices) {
+            if(v.y < -100) {
+                obj.velocity.y = abs(obj.velocity.y);
+                break;
+            }
+            if(v.y > 100) {
+                obj.velocity.y = -abs(obj.velocity.y);
+                break;
+            }
+            if(v.x < -100) {
+                obj.velocity.x = abs(obj.velocity.x);
+                break;
+            }
+            if(v.x > 100) {
+                obj.velocity.x = -abs(obj.velocity.x);
+                break;
+            }
         }
     }
 
