@@ -1,6 +1,6 @@
 #include <vector>
 #include <stdint.h>
-
+#include <chrono>
 #include "Rigidbody.h"
 
 #ifndef World_H
@@ -16,8 +16,9 @@ class World {
 
     private:
         std::vector<Rigidbody> objects;
-        uint64_t last_step;
-        uint64_t currentTime();
+        
+        std::chrono::high_resolution_clock::time_point last_step;
+        std::chrono::high_resolution_clock::time_point currentTime();
 
 };
 
