@@ -9,7 +9,7 @@ using namespace std;
 #define Intersection_H
 
 struct intersection{
-    Rigidbody* o1, o2;
+    Rigidbody *o1, *o2;
     Vec2 p;
 };
 
