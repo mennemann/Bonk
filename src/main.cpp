@@ -38,8 +38,8 @@ int main(void) {
     rock.setColor(1, 1, 0.2);
 
 
-    rock.velocity = Vec2(50,50);
-    rock.torque = -0.1;
+    rock.velocity = Vec2(-50,-1);
+    //rock.torque = -0.1;
     rock.ang_velocity = 1;
     //rock.force = Vec2(0,-10);
 
