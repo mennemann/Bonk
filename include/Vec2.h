@@ -21,6 +21,7 @@ class Vec2 {
         double operator*(Vec2 const& other);
 
         double length();
+        Vec2 rotate(double angle, Vec2 ref);
 
         friend ostream& operator<<(ostream& os, const Vec2& v) {
             return os << "(" << v.x << "," << v.y << ")";

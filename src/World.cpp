@@ -32,36 +32,14 @@ void World::step() {
     for (Rigidbody& obj : this->objects) {
 
         obj.velocity += obj.force*(1/obj.mass)*delta_time;
+        obj.position += obj.velocity*delta_time;
+
         obj.ang_velocity += obj.torque/obj.mass*delta_time;
+        obj.angle += obj.ang_velocity*delta_time;
 
-        for (Vec2& v : obj.vertices) {
-            v+=obj.velocity*delta_time;
-        }
-
-        Vec2 center = obj.getCenter();
-        for (Vec2& v : obj.vertices) {
-            v.x = cos(obj.ang_velocity*delta_time)*(v.x-center.x)-sin(obj.ang_velocity*delta_time)*(v.y-center.y)+center.x;
-            v.y = sin(obj.ang_velocity*delta_time)*(v.x-center.x)+cos(obj.ang_velocity*delta_time)*(v.y-center.y)+center.y;
-        }
-
-
-        for (Vec2& v : obj.vertices) {
-            if(v.y < -100) {
-                obj.velocity.y = abs(obj.velocity.y);
-                break;
-            }
-            if(v.y > 100) {
-                obj.velocity.y = -abs(obj.velocity.y);
-                break;
-            }
-            if(v.x < -100) {
-                obj.velocity.x = abs(obj.velocity.x);
-                break;
-            }
-            if(v.x > 100) {
-                obj.velocity.x = -abs(obj.velocity.x);
-                break;
-            }
+        if (obj.position.y < -100) {
+            obj.velocity.y = abs(obj.velocity.y);
+            obj.position.y += abs(100+obj.position.y);
         }
     }
 
@@ -72,9 +50,24 @@ void World::render() {
     for (Rigidbody obj : this->objects) {
         glBegin(GL_POLYGON);
         glColor3f(obj.color[0],obj.color[1],obj.color[2]);
-        for (Vec2 v : obj.vertices) {
+        for (Vec2 v : obj.getVertices()) {
             glVertex2d(v.x/100,v.y/100);
         }
         glEnd();
+
+
+
+
+
+        Vec2 center = obj.getCenter();
+        glBegin(GL_POLYGON);
+        glColor3f(0,obj.color[1],obj.color[2]);
+
+        glVertex2d((center.x-3)/100,(center.y-3)/100);
+        glVertex2d((center.x+3)/100,(center.y-3)/100);
+        glVertex2d((center.x+3)/100,(center.y+3)/100);
+        glVertex2d((center.x-3)/100,(center.y+3)/100);
+        glEnd();
+
     }
 }

@@ -53,3 +53,9 @@ double Vec2::length()
 {
     return sqrt(*this * *this);
 }
+
+Vec2 Vec2::rotate(double angle, Vec2 ref) {
+    double x = cos(angle)*(this->x-ref.x) - sin(angle)*(this->y-ref.y) + ref.x;
+    double y = sin(angle)*(this->x-ref.x) + cos(angle)*(this->y-ref.y) + ref.y;
+    return Vec2(x,y);
+}
