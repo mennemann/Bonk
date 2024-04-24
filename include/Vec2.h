@@ -14,6 +14,7 @@ class Vec2 {
         Vec2(double x, double y);
 
         Vec2 operator+(Vec2 const& other);
+        void operator+=(Vec2 const& other);
         Vec2 operator-(Vec2 const& other);
         Vec2 operator*(double const other);
         double operator*(Vec2 const& other);

@@ -7,19 +7,17 @@
 #define Rigidbody_H
 
 class Rigidbody {
-    public:
-        Rigidbody(std::initializer_list<Vec2> vertices);
-        std::vector<Vec2> getVertices();
-        float color[3] = {1,1,1};
+public:
+    Rigidbody(std::initializer_list<Vec2> vertices);
+    std::vector<Vec2> vertices;
 
-        void setColor(float r, float g, float b);
+    float color[3] = {1, 1, 1};
 
-    private:
-        std::vector<Vec2> vertices;
+    void setColor(float r, float g, float b);
 
-        Vec2 velocity;
-        Vec2 force;
-        double mass;
+    Vec2 velocity;
+    Vec2 force;
+    double mass = 1;
 };
 
 

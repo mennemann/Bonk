@@ -22,6 +22,12 @@ Vec2 Vec2::operator+(Vec2 const &other)
     return Vec2(this->x + other.x, this->y + other.y);
 }
 
+void Vec2::operator+=(Vec2 const &other)
+{
+    this->x += other.x;
+    this->y += other.y;
+}
+
 Vec2 Vec2::operator-(Vec2 const &other)
 {
     return Vec2(this->x - other.x, this->y - other.y);
