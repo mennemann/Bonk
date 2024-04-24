@@ -38,6 +38,12 @@ Vec2 Vec2::operator*(double const other)
     return Vec2(this->x * other, this->y * other);
 }
 
+void Vec2::operator*=(double const other)
+{
+    this->x *= other;
+    this->y *= other;
+}
+
 double Vec2::operator*(Vec2 const &other)
 {
     return this->x * other.x + this->y * other.y;

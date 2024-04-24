@@ -17,6 +17,7 @@ class Vec2 {
         void operator+=(Vec2 const& other);
         Vec2 operator-(Vec2 const& other);
         Vec2 operator*(double const other);
+        void operator*=(double const other);
         double operator*(Vec2 const& other);
 
         double length();
