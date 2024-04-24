@@ -11,6 +11,7 @@ public:
     Rigidbody(std::initializer_list<Vec2> vertices);
     std::vector<Vec2> vertices;
     Vec2 getCenter();
+    void move(Vec2 d);
 
     float color[3] = {1, 1, 1};
 

@@ -18,3 +18,10 @@ void Rigidbody::setColor(float r, float g, float b) {
     this->color[1] = g;
     this->color[2] = b;
 }
+
+
+void Rigidbody::move(Vec2 d) {
+    for (Vec2& v : this->vertices) {
+        v+=d;
+    }
+}
