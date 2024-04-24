@@ -1,11 +1,12 @@
 #define _USE_MATH_DEFINES
 #include "World.h"
-
+#include "Intersections.h"
 #include <stdint.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <chrono>
 #include <math.h>
+#include <set>
 
 using namespace std;
 
@@ -46,19 +47,25 @@ void World::step() {
     auto mm = (struct max_min*)malloc(N*sizeof(struct max_min));
     for (i = 0; i<N; i++) mm[i] = this->objects[i].getMaxMin();
 
+    set<Rigidbody*> might_bonk;
+
     for (i = 0; i < N; i++) {
-        for (j = i; j<N; j++) {
+        for (j = 0; j<N; j++) {
             if (i==j) continue;
             if(!(mm[i].max_x > mm[j].min_x && mm[j].max_x > mm[i].min_x) || !(mm[i].max_y > mm[j].min_y && mm[j].max_y > mm[i].min_y)) continue;
             
-            cout << "might collide" << endl;    
+            might_bonk.insert(&this->objects[i]); 
+            might_bonk.insert(&this->objects[j]); 
         }
     }
 
     free(mm);
-
-
-
+    
+    if (might_bonk.size()>0) {
+        vector<Rigidbody*> m_b(might_bonk.begin(), might_bonk.end());
+        
+        get_intersections(m_b);
+    }
 
 
     for (Rigidbody& obj : this->objects) {
