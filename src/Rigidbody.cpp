@@ -9,13 +9,6 @@ Rigidbody::Rigidbody(std::initializer_list<Vec2> vertices) {
 
     while (!v.empty())
     {
-        struct max_min d;
-        if (v.front().x < d.min_x) d.min_x = v.front().x;
-        if (v.front().x > d.max_x) d.max_x = v.front().x;
-        if (v.front().x < d.min_y) d.min_y = v.front().y;
-        if (v.front().x > d.max_y) d.max_y = v.front().y;
-        this->max_min = d;
-
         this->vertices.push_back(v.front()-this->position);
         v.pop_front();
     }
@@ -46,7 +39,14 @@ Vec2 Rigidbody::getCenter() {
 }
 
 struct max_min Rigidbody::getMaxMin() {
-    return this->max_min;
+    struct max_min d;
+    for (Vec2 v : this->getVertices()) {
+        if (v.x < d.min_x) d.min_x = v.x;
+        if (v.x > d.max_x) d.max_x = v.x;
+        if (v.y < d.min_y) d.min_y = v.y;
+        if (v.y > d.max_y) d.max_y = v.y;
+    }
+    return d;
 }
 
 void Rigidbody::setColor(float r, float g, float b) {

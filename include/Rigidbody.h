@@ -37,7 +37,6 @@ public:
 
 private:
     std::vector<Vec2> vertices;
-    struct max_min max_min;
 };
 
 
