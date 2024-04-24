@@ -24,8 +24,8 @@ public:
     Vec2 force;
 
     double angle;
-    double ang_velocity = 0;
-    double torque = 0;
+    double ang_velocity;
+    double torque;
 
 private:
     std::vector<Vec2> vertices;

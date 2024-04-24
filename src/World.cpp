@@ -37,9 +37,13 @@ void World::step() {
         obj.ang_velocity += obj.torque/obj.mass*delta_time;
         obj.angle += obj.ang_velocity*delta_time;
 
-        if (obj.position.y < -100) {
-            obj.velocity.y = abs(obj.velocity.y);
-            obj.position.y += abs(100+obj.position.y);
+
+        for (auto v : obj.getVertices()) {
+            if (v.y < -100) {
+                obj.velocity.y = abs(obj.velocity.y);
+                obj.position.y += abs(100+obj.position.y);
+                break;
+            }
         }
     }
 
@@ -61,8 +65,7 @@ void World::render() {
 
         Vec2 center = obj.getCenter();
         glBegin(GL_POLYGON);
-        glColor3f(0,obj.color[1],obj.color[2]);
-
+        glColor3f(0,1,1);
         glVertex2d((center.x-3)/100,(center.y-3)/100);
         glVertex2d((center.x+3)/100,(center.y-3)/100);
         glVertex2d((center.x+3)/100,(center.y+3)/100);
