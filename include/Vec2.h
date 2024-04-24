@@ -19,6 +19,7 @@ class Vec2 {
         Vec2 operator*(double const other);
         void operator*=(double const other);
         double operator*(Vec2 const& other);
+        bool operator==(Vec2 const& other);
 
         double length();
         Vec2 rotate(double angle, Vec2 ref);

@@ -49,6 +49,11 @@ double Vec2::operator*(Vec2 const &other)
     return this->x * other.x + this->y * other.y;
 }
 
+bool Vec2::operator==(Vec2 const &other)
+{
+    return this->x == other.x && this->y == other.y;
+}
+
 double Vec2::length()
 {
     return sqrt(*this * *this);
