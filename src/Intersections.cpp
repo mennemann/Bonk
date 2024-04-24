@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <set>
 
 #include "Intersections.h"
 
@@ -14,6 +15,11 @@ struct segment {
     Rigidbody* color;
 };
 
+inline bool operator<(const segment& a, const segment& b) {
+    // it looks easy but no...
+    return false;
+}
+
 struct event_point {
     Vec2 p;
     segment* parent;
@@ -26,25 +32,23 @@ struct event_point {
 
 
 
-segment* successor(segment* s, vector<segment*>* T) {
+segment* successor(segment* s, set<segment>* T) {
     return NULL;
 }
 
-segment* predecessor(segment* s, vector<segment*>* T) {
+segment* predecessor(segment* s, set<segment>* T) {
     return NULL;
 }
 
 Vec2* find_intersect(segment* a, segment* b) {
-    auto result = new Vec2();
-
-    return result;
+    return NULL;
 }
 
 vector<intersection> bentley_ottman(vector<segment> segments) {
 
     priority_queue<event_point, vector<event_point>, greater<event_point>> Q;
-    vector<segment*> T;
-    
+    set<segment> T;
+
     for (auto& s : segments) {
         Q.push(event_point{s.p1, &s, NULL});
         Q.push(event_point{s.p2, &s, NULL});
@@ -61,10 +65,9 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
 
         segment* s = p.parent;
         if(p.intersect != NULL) { // p is intersect
-            intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
+            //intersections.push_back(intersection{p.parent->color, p.intersect->color, });
         } else if (p.p == s->p1) { // p is left endpoint
-            //insert s in T
-            
+            T.insert(*s);            
             
             u = predecessor(s, &T);
             t = successor(s, &T);
@@ -84,13 +87,13 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
             delete c1;
             delete c2;
 
-            //remove s from T
+            T.erase(*s);
         } else { 
             cout << "wtf" << endl;
         }
     }
 
-
+    
     return intersections;
 }
 
