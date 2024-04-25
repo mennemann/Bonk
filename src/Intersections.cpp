@@ -38,22 +38,6 @@ struct event_point {
 
 
 
-segment* predecessor(segment* s, vector<segment*>& T) {
-    unsigned int i = index(s,T);
-    if (i > 0) return T[i-1];
-    return NULL;
-}
-
-segment* successor(segment* s, vector<segment*>& T) {
-    unsigned int i = index(s,T);
-    if (i+1 < T.size()) return T[i+1];
-    return NULL;
-}
-
-Vec2* find_intersect(segment* a, segment* b) {
-    return NULL;
-}
-
 // finde das erste i, so dass T[i].f(s->p1.x) > s->p1.y
 void insert(segment *s, vector<segment*>& T) {
     unsigned int i;
@@ -76,6 +60,22 @@ void swap(segment *s, segment* r, vector<segment*>& T) { // assume s and r in T
 unsigned int index(segment *s, vector<segment*>& T) {
     unsigned int i = find(T.begin(), T.end(), s) - T.begin(); // assume s is def. in T
     return i;
+}
+
+segment* predecessor(segment* s, vector<segment*>& T) {
+    unsigned int i = index(s,T);
+    if (i > 0) return T[i-1];
+    return NULL;
+}
+
+segment* successor(segment* s, vector<segment*>& T) {
+    unsigned int i = index(s,T);
+    if (i+1 < T.size()) return T[i+1];
+    return NULL;
+}
+
+Vec2* find_intersect(segment* a, segment* b) {
+    return NULL;
 }
 
 vector<intersection> bentley_ottman(vector<segment> segments) {
