@@ -39,10 +39,14 @@ struct event_point {
 
 
 segment* predecessor(segment* s, vector<segment*>& T) {
+    unsigned int i = index(s,T);
+    if (i > 0) return T[i-1];
     return NULL;
 }
 
 segment* successor(segment* s, vector<segment*>& T) {
+    unsigned int i = index(s,T);
+    if (i+1 < T.size()) return T[i+1];
     return NULL;
 }
 
@@ -63,10 +67,15 @@ void remove(segment *s, vector<segment*>& T) {
     T.erase(remove(T.begin(), T.end(), s), T.end());
 }
 
-void swap(segment *s, segment* t, vector<segment*>& T) {
+void swap(segment *s, segment* r, vector<segment*>& T) { // assume s and r in T
     auto i_s = find(T.begin(), T.end(), s);
-    auto i_t = find(T.begin(), T.end(), t);
-    iter_swap(i_s, i_t);
+    auto i_r = find(T.begin(), T.end(), r);
+    iter_swap(i_s, i_r);
+}
+
+unsigned int index(segment *s, vector<segment*>& T) {
+    unsigned int i = find(T.begin(), T.end(), s) - T.begin(); // assume s is def. in T
+    return i;
 }
 
 vector<intersection> bentley_ottman(vector<segment> segments) {
@@ -90,7 +99,26 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
 
         segment* s = p.parent;
         if(p.intersect != NULL) { // p is intersect
-            //intersections.push_back(intersection{p.parent->color, p.intersect->color, });
+            intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
+            swap(p.parent, p.intersect);
+
+            segment *lower, *upper;
+            if (index(p.parent, T) < index(p.intersect,T)) {
+                lower = p.parent;
+                upper = p.intersect;
+            } else {
+                lower = p.intersect;
+                upper = p.parent;
+            }
+            u = predecessor(lower,T);
+            t = successor(upper,T);
+            Vec2* c1 = find_intersect(lower, u);
+            Vec2* c2 = find_intersect(upper, t);
+            if (c1 != NULL) Q.push({*c1, lower, u});
+            if (c2 != NULL) Q.push({*c2, upper, t});
+            delete c1;
+            delete c2;
+
         } else if (p.p == s->p1) { // p is left endpoint
             insert(s,T);            
             
