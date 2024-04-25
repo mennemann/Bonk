@@ -14,6 +14,6 @@ struct intersection{
 };
 
 
-vector<intersection> get_intersections(vector<Rigidbody*> objects);
+vector<intersection> get_intersections(vector<Rigidbody*>& objects);
 
 #endif
