@@ -38,10 +38,12 @@ int main(void) {
     rock.setColor(1, 1, 0.2);
 
 
-    rock.velocity = Vec2(-50,-1);
-    //rock.torque = -0.1;
-    rock.ang_velocity = 1;
+    rock.velocity = Vec2(-51,-1);
+    rock.torque = -0.5;
+    //rock.ang_velocity = 10;
     //rock.force = Vec2(0,-10);
+    rock.angle = M_PI * 0.25;
+
 
     Rigidbody a = Rigidbody{{-5,-5},{5,-5},{5,5},{-5,5}};
 
