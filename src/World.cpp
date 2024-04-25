@@ -64,7 +64,18 @@ void World::step() {
     if (might_bonk.size()>0) {
         vector<Rigidbody*> m_b(might_bonk.begin(), might_bonk.end());
         
-        get_intersections(m_b);
+        vector<intersection> intersections = get_intersections(m_b);
+
+        for (auto p : intersections) 
+        {
+            glBegin(GL_POLYGON);
+            glColor3f(0,1,0);
+            glVertex2d((p.p.x-1)/100,(p.p.y-1)/100);
+            glVertex2d((p.p.x+1)/100,(p.p.y-1)/100);
+            glVertex2d((p.p.x+1)/100,(p.p.y+1)/100);
+            glVertex2d((p.p.x-1)/100,(p.p.y+1)/100);
+            glEnd();
+        }
     }
 
 
