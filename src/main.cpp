@@ -22,9 +22,9 @@ void go(World w) {
         glClear(GL_COLOR_BUFFER_BIT);
         
         w.step();
-        w.render(window);
+        w.render();
         
-        //glfwSwapBuffers(window);
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
     glfwTerminate();

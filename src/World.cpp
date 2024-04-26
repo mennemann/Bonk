@@ -101,7 +101,7 @@ void World::step() {
 }
 
 
-void World::render(GLFWwindow *window) {
+void World::render() {
     for (Rigidbody obj : this->objects) {
         glBegin(GL_POLYGON);
         glColor3f(obj.color[0],obj.color[1],obj.color[2]);
@@ -135,8 +135,6 @@ void World::render(GLFWwindow *window) {
             glVertex2d((p.p.x-1)/100,(p.p.y+1)/100);
             glEnd();
         }
-
-    glfwSwapBuffers(window);
 
     if (intersections.size()>2) {
         cout << intersections.size() << endl;
