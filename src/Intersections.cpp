@@ -19,7 +19,9 @@ vector<intersection<Rigidbody*>> get_intersections(vector<Rigidbody*>& objects) 
         }
     }
 
-    return bentley_ottmann(segments);
+    //return bentley_ottmann(segments);
+    vector<intersection<Rigidbody*>> result;
+    return result;
 }
 
 
