@@ -3,6 +3,9 @@
 #include <chrono>
 #include "Rigidbody.h"
 
+#include <GLFW/glfw3.h>
+
+
 #ifndef World_H
 #define World_H
 
@@ -11,7 +14,7 @@ class World {
     public:
         World();
         void step();
-        void render();
+        void render(GLFWwindow *window);
         void add(Rigidbody obj);
 
     private:

@@ -22,9 +22,9 @@ void go(World w) {
         glClear(GL_COLOR_BUFFER_BIT);
         
         w.step();
-        w.render();
+        w.render(window);
         
-        glfwSwapBuffers(window);
+        //glfwSwapBuffers(window);
         glfwPollEvents();
     }
     glfwTerminate();
@@ -39,13 +39,14 @@ int main(void) {
 
 
     rock.velocity = Vec2(-51,-1);
-    rock.torque = -0.5;
-    //rock.ang_velocity = 10;
+    //rock.torque = -0.5;
+    rock.ang_velocity = 10;
     //rock.force = Vec2(0,-10);
     rock.angle = M_PI * 0.25;
 
 
     Rigidbody a = Rigidbody{{-5,-5},{5,-5},{5,5},{-5,5}};
+    a.angle=0.2;
 
     w.add(rock);
     w.add(a);

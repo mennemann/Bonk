@@ -7,6 +7,7 @@
 #include <chrono>
 #include <math.h>
 #include <set>
+#include <algorithm>
 
 using namespace std;
 
@@ -23,6 +24,8 @@ void World::add(Rigidbody obj) {
     this->objects.push_back(obj);
 }
 
+
+vector<intersection> intersections;
 
 void World::step() {
     auto delta_time_ns = currentTime() - this->last_step;
@@ -61,21 +64,12 @@ void World::step() {
 
     free(mm);
     
+    intersections.clear();
     if (might_bonk.size()>0) {
         vector<Rigidbody*> m_b(might_bonk.begin(), might_bonk.end());
         
-        vector<intersection> intersections = get_intersections(m_b);
-
-        for (auto p : intersections) 
-        {
-            glBegin(GL_POLYGON);
-            glColor3f(0,1,0);
-            glVertex2d((p.p.x-1)/100,(p.p.y-1)/100);
-            glVertex2d((p.p.x+1)/100,(p.p.y-1)/100);
-            glVertex2d((p.p.x+1)/100,(p.p.y+1)/100);
-            glVertex2d((p.p.x-1)/100,(p.p.y+1)/100);
-            glEnd();
-        }
+        intersections = get_intersections(m_b);
+        intersections.erase(unique(intersections.begin(), intersections.end()), intersections.end());
     }
 
 
@@ -107,7 +101,7 @@ void World::step() {
 }
 
 
-void World::render() {
+void World::render(GLFWwindow *window) {
     for (Rigidbody obj : this->objects) {
         glBegin(GL_POLYGON);
         glColor3f(obj.color[0],obj.color[1],obj.color[2]);
@@ -129,5 +123,23 @@ void World::render() {
         glVertex2d((center.x-3)/100,(center.y+3)/100);
         glEnd();
 
+    }
+
+    for (auto p : intersections) 
+        {
+            glBegin(GL_POLYGON);
+            glColor3f(0,1,0);
+            glVertex2d((p.p.x-1)/100,(p.p.y-1)/100);
+            glVertex2d((p.p.x+1)/100,(p.p.y-1)/100);
+            glVertex2d((p.p.x+1)/100,(p.p.y+1)/100);
+            glVertex2d((p.p.x-1)/100,(p.p.y+1)/100);
+            glEnd();
+        }
+
+    glfwSwapBuffers(window);
+
+    if (intersections.size()>2) {
+        cout << intersections.size() << endl;
+        for (auto p: intersections) cout << p.p << endl;
     }
 }
