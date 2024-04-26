@@ -81,7 +81,6 @@ segment* successor(segment* s, vector<segment*>& T) {
 
 Vec2* find_intersect(segment* a, segment* b) {
     if (a == NULL || b == NULL) return NULL;
-    //cout << "Finding intersect between:" << endl << *a << endl << *b << endl;
     Vec2 da = a->p2 - a->p1;
     Vec2 db = b->p2 - b->p1;
 
@@ -96,26 +95,12 @@ Vec2* find_intersect(segment* a, segment* b) {
     
     if (a->p1.x < x && x < a->p2.x && b->p1.x < x && x < b->p2.x) {
         Vec2* res = new Vec2(x, a->f(x));
-
-        //cout << "found itersection at " << *res << endl<<endl;
-
-        //cout << ma << "*x + " << ba << endl;
-        //cout << mb << "*x + " << bb << endl;
-
-
         return res;
     }
-    
-    //cout << "no intersection" << endl <<endl;
     return NULL;
 }
 
 vector<intersection> bentley_ottman(vector<segment> segments) {
-    //cout << "segments:" << endl;
-    for (auto s: segments) {
-        //cout << s << endl;
-    }
-
     priority_queue<event_point, vector<event_point>, greater<event_point>> Q;
     vector<segment*> T;
 
@@ -129,15 +114,11 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
 
     segment *u, *t;
 
-    //cout << endl << "BO:" << endl;
     while (!Q.empty()) {
         event_point p = Q.top();
         Q.pop();
 
         segment* s = p.parent;
-
-        //cout << endl << "now visiting: " << p.p << endl;
-        //cout << "parent segment: " <<*(p.parent) << endl;
         
         if(p.intersect != NULL) { // p is intersect
             if(p.parent->color != p.intersect->color) intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
@@ -162,7 +143,6 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
             delete c2;
 
         } else if (p.p == s->p1) { // p is left endpoint
-            //cout << "is left endpoint" << endl;
             insert(s,T);            
             
             u = predecessor(s, T);
@@ -174,7 +154,6 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
             delete c1;
             delete c2;
         } else if (p.p == s->p2) { // p is right endpoint
-            //cout << "is right endpoint" << endl;
             u = predecessor(s, T);
             t = successor(s, T);
             Vec2* c1 = find_intersect(u, s);
@@ -185,8 +164,6 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
             delete c2;
 
             remove(s,T);
-        } else { 
-            cout << "wtf" << endl;
         }
     }
 
