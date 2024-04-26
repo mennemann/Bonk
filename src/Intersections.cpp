@@ -57,6 +57,7 @@ vector<intersection> get_intersections(vector<Rigidbody*>& objects) {
 
             Vec2 *c = find_intersect(&segments[i], &segments[j]);
             if(c != NULL) result.push_back(intersection{segments[i].color,segments[j].color,*c});
+            delete c;
         }
     }
 
