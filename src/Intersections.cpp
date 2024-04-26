@@ -36,7 +36,7 @@ struct event_point {
     segment* intersect;
 
     bool operator>(const event_point& other) const {
-        if (p.x == other.p.x) return intersect != NULL;
+        if (p.x == other.p.x) return p.y > other.p.y;
         return p.x > other.p.x;
     }
 };
@@ -119,10 +119,10 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
         Q.pop();
 
         segment* s = p.parent;
-        
+
         if(p.intersect != NULL) { // p is intersect
-            if(p.parent->color != p.intersect->color) intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
-            cout << "is intersection" << endl;
+            if(p.parent->color == p.intersect->color) continue;
+            intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
             swap(p.parent, p.intersect);
 
             segment *lower, *upper;
