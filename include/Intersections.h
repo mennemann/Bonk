@@ -11,6 +11,7 @@ using namespace std;
 struct intersection{
     Rigidbody *o1, *o2;
     Vec2 p;
+    bool operator==(const intersection& other);
 };
 
 

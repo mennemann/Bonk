@@ -9,6 +9,10 @@
 
 using namespace std;
 
+bool intersection::operator==(const intersection& other) {
+    return (o1==other.o1 && o2==other.o2 && p == other.p);
+}
+
 struct segment {
     Vec2 p1, p2;
     Rigidbody* color;
@@ -156,13 +160,9 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
         } else if (p.p == s->p2) { // p is right endpoint
             u = predecessor(s, T);
             t = successor(s, T);
-            Vec2* c1 = find_intersect(u, s);
-            Vec2* c2 = find_intersect(s, t);
-            if (c1 != NULL) Q.push({*c1, u, s});
-            if (c2 != NULL) Q.push({*c2, s, t});
+            Vec2* c1 = find_intersect(u, t);
+            if (c1 != NULL) Q.push({*c1, u, t});
             delete c1;
-            delete c2;
-
             remove(s,T);
         }
     }
