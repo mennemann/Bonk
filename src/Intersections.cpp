@@ -83,25 +83,48 @@ segment* successor(segment* s, vector<segment*>& T) {
     return NULL;
 }
 
+// solves ax + by = c
+//        dx + ey = f
+inline double* solve_eq(double a, double b, double c, double d, double e, double f) {
+    double det = a*e - d*b;
+    if (det == 0) return NULL;
+
+    double *solutions = new double[2];
+
+    solutions[0] = (c*e - f*b)/det;
+    solutions[1] = (a*f - d*c)/det;
+
+    return solutions;
+}
+
 Vec2* find_intersect(segment* a, segment* b) {
     if (a == NULL || b == NULL) return NULL;
     Vec2 da = a->p2 - a->p1;
     Vec2 db = b->p2 - b->p1;
 
-    double ma = da.y/da.x;
-    double ba = a->p1.y - ma * a->p1.x;
+    // solving  da * r + a1 = db * t + b1
+    //          da * r - db * t = b1 - a1
 
+    double* solutions = solve_eq(
+        da.x, -db.x, b->p1.x - a->p1.x,
+        da.y, -db.y, b->p1.y - a->p1.y
+        );
 
-    double mb = db.y/db.x;
-    double bb = b->p1.y - mb * b->p1.x;
+    if (solutions == NULL) return NULL;
+    if (!(0 < solutions[0] && solutions[0] < 1)) return NULL;
 
-    double x = (bb-ba)/(ma-mb);
+    Vec2 s1 = da*solutions[0] +a->p1;
+    Vec2 s2 = db*solutions[1] +b->p1;
     
-    if (a->p1.x < x && x < a->p2.x && b->p1.x < x && x < b->p2.x) {
-        Vec2* res = new Vec2(x, a->f(x));
-        return res;
-    }
-    return NULL;
+    delete [] solutions;
+
+    Vec2 *res = new Vec2();
+    *res = s1;
+
+    cout << *a <<" , " << *b << endl;
+    cout << s1 << " " << s2 << endl; 
+
+    return res;
 }
 
 vector<intersection> bentley_ottman(vector<segment> segments) {
@@ -124,7 +147,7 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
 
         segment* s = p.parent;
 
-        if(p.intersect != NULL) { // p is intersect
+        if(p.parent != NULL && p.intersect != NULL) { // p is intersect
             if(p.parent->color == p.intersect->color) continue;
             intersections.push_back(intersection{p.parent->color, p.intersect->color, p.p});
             swap(p.parent, p.intersect);
@@ -166,7 +189,7 @@ vector<intersection> bentley_ottman(vector<segment> segments) {
             remove(s,T);
         }
     }
-
+    
     return intersections;
 }
 
