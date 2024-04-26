@@ -27,4 +27,6 @@ struct segment {
 template <typename T>
 vector<intersection<T>> bentley_ottmann(vector<segment<T>> segments);
 
+
+void test();
 #endif

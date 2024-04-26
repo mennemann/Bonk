@@ -9,6 +9,8 @@
 #include "Vec2.h"
 #include "World.h"
 
+#include "bentley_ottmann.hpp"
+
 using namespace std;
 
 
@@ -32,6 +34,9 @@ void go(World w) {
 
 int main(void) {
 
+
+    test();
+    return 0;
     auto w = World();
 
     Rigidbody rock = Rigidbody{{-20,10},{0,10},{0,30},{-20,30}};
