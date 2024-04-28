@@ -23,9 +23,10 @@ public:
     float color[3] = {1, 1, 1};
     void setColor(float r, float g, float b);
 
-
+    void applyImpulse(Vec2 J, Vec2 anchor);
 
     double mass = 1;
+    double inertia = 1;
 
     Vec2 position;    
     Vec2 velocity;

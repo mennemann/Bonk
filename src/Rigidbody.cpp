@@ -54,3 +54,10 @@ void Rigidbody::setColor(float r, float g, float b) {
     this->color[1] = g;
     this->color[2] = b;
 }
+
+
+
+void Rigidbody::applyImpulse(Vec2 J, Vec2 anchor) {
+    this->velocity += J*(1/this->mass);
+    this->ang_velocity += cross(anchor-this->getCenter(),J)/this->inertia;
+}
