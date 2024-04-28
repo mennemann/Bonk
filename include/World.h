@@ -17,6 +17,7 @@ class World {
     private:
         std::vector<Rigidbody> objects;
         
+        std::chrono::high_resolution_clock::time_point start_time;
         std::chrono::high_resolution_clock::time_point last_step;
         std::chrono::high_resolution_clock::time_point currentTime();
 

@@ -12,6 +12,7 @@ using namespace std;
 
 
 World::World() {
+    this->start_time = this->currentTime();
     this->last_step = this->currentTime();
 }
 
