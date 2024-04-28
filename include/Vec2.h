@@ -29,5 +29,6 @@ class Vec2 {
         }
 };
 
+double cross(Vec2 v, Vec2 w);
 
 #endif

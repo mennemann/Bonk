@@ -11,10 +11,6 @@ struct segment {
     Rigidbody* color;
 };
 
-inline double cross(Vec2 v, Vec2 w) {
-    return v.x*w.y - v.y*w.x;
-}
-
 Vec2* find_intersect(segment* a, segment* b) {
     Vec2 p = a->p1;
     Vec2 r = a->p2 - a->p1;
