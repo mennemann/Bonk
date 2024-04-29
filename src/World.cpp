@@ -7,6 +7,7 @@
 #include <chrono>
 #include <math.h>
 #include <set>
+#include <tuple>
 
 using namespace std;
 
@@ -100,6 +101,16 @@ void World::step() {
 }
 
 
+void drawPoint(Vec2 p, double r, tuple<double,double,double> color = {1,1,1}) {
+    glBegin(GL_POLYGON);
+    glColor3f(get<0>(color),get<1>(color),get<2>(color));
+    glVertex2d((p.x-r)/100,(p.y-r)/100);
+    glVertex2d((p.x+r)/100,(p.y-r)/100);
+    glVertex2d((p.x+r)/100,(p.y+r)/100);
+    glVertex2d((p.x-r)/100,(p.y+r)/100);
+    glEnd();
+}
+
 void World::render() {
     for (Rigidbody obj : this->objects) {
         glBegin(GL_POLYGON);
@@ -109,27 +120,10 @@ void World::render() {
         }
         glEnd();
 
-
-
-
-
-        Vec2 center = obj.getCenter();
-        glBegin(GL_POLYGON);
-        glColor3f(0,1,1);
-        glVertex2d((center.x-3)/100,(center.y-3)/100);
-        glVertex2d((center.x+3)/100,(center.y-3)/100);
-        glVertex2d((center.x+3)/100,(center.y+3)/100);
-        glVertex2d((center.x-3)/100,(center.y+3)/100);
-        glEnd();
+        drawPoint(obj.getCenter(),3,{0,1,1});        
+    }
 
         for (auto p : intersections) {
-            glBegin(GL_POLYGON);
-            glColor3f(0,1,0);
-            glVertex2d((p.p.x-1)/100,(p.p.y-1)/100);
-            glVertex2d((p.p.x+1)/100,(p.p.y-1)/100);
-            glVertex2d((p.p.x+1)/100,(p.p.y+1)/100);
-            glVertex2d((p.p.x-1)/100,(p.p.y+1)/100);
-            glEnd();
-        }
+        drawPoint(p.p,1,{0,1,0});
     }
 }
