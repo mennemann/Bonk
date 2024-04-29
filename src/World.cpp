@@ -9,6 +9,8 @@
 #include <set>
 #include <tuple>
 
+#define C 1
+
 using namespace std;
 
 void drawPoint(Vec2 p, double r, tuple<double,double,double> color = {1,1,1}) {
@@ -63,12 +65,30 @@ void World::step() {
     set<Rigidbody*> might_bonk;
 
     for (i = 0; i < N; i++) {
-        for (j = 0; j<N; j++) {
+        for (j = i; j<N; j++) {
             if (i==j) continue;
             if(!(mm[i].max_x > mm[j].min_x && mm[j].max_x > mm[i].min_x) || !(mm[i].max_y > mm[j].min_y && mm[j].max_y > mm[i].min_y)) continue;
             
             might_bonk.insert(&this->objects[i]); 
-            might_bonk.insert(&this->objects[j]); 
+            might_bonk.insert(&this->objects[j]);
+
+            Rigidbody& a = this->objects[i];
+            Rigidbody& b = this->objects[j];
+
+            Vec2 *p = estimate_collosion_point(a,b);
+            if(p!=NULL) {
+                Vec2 n = a.getCenter() - b.getCenter();
+                n *= (double)1/n.length();
+
+                Vec2 r_a = *p-a.getCenter();
+                Vec2 r_b = *p-b.getCenter();
+
+                double j = (-1-C)*(a.velocity*n - b.velocity*n + a.ang_velocity*cross(r_a,n) - b.ang_velocity*cross(r_a,n))/(1/a.mass + 1/b.mass + pow(cross(r_a,n),2)/a.inertia + pow(cross(r_b,n),2)/b.inertia);
+
+                a.applyImpulse(n*j,*p);
+                b.applyImpulse(n*-j,*p);
+                delete p;
+            }
         }
     }
 
