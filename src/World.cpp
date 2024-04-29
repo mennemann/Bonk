@@ -16,10 +16,9 @@ using namespace std;
 void drawPoint(Vec2 p, double r, tuple<double,double,double> color = {1,1,1}) {
     glBegin(GL_POLYGON);
     glColor3f(get<0>(color),get<1>(color),get<2>(color));
-    glVertex2d((p.x-r)/100,(p.y-r)/100);
-    glVertex2d((p.x+r)/100,(p.y-r)/100);
-    glVertex2d((p.x+r)/100,(p.y+r)/100);
-    glVertex2d((p.x-r)/100,(p.y+r)/100);
+    for (double i = 0; i < 2*M_PI; i+=M_PI/10) {
+        glVertex2d((p.x-cos(i)*r)/100,(p.y-sin(i)*r)/100);
+    }
     glEnd();
 }
 
@@ -77,6 +76,7 @@ void World::step() {
 
             Vec2 *p = estimate_collosion_point(a,b);
             if(p!=NULL) {
+                drawPoint(*p,1,{1,0,0});
                 Vec2 n = a.getCenter() - b.getCenter();
                 n *= (double)1/n.length();
 
@@ -139,7 +139,7 @@ void World::render() {
         }
         glEnd();
 
-        drawPoint(obj.getCenter(),3,{0,1,1});        
+        drawPoint(obj.getCenter(),2,{0,1,1});       
     }
 
     for (auto p : intersections) {
