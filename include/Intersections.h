@@ -14,5 +14,5 @@ struct intersection{
 };
 
 vector<intersection> get_intersections(vector<Rigidbody*>& objects);
-
+Vec2* estimate_collosion_point(Rigidbody& a, Rigidbody& b);
 #endif

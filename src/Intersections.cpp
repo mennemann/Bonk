@@ -60,4 +60,18 @@ vector<intersection> get_intersections(vector<Rigidbody*>& objects) {
     return result;
 }
 
+Vec2* estimate_collosion_point(Rigidbody& a, Rigidbody& b) {
+    vector<Rigidbody*> objects = {&a,&b};
+    vector<intersection> intersections = get_intersections(objects);
 
+    if (intersections.size()>0) {
+        Vec2 *res = new Vec2();
+
+        for (auto p : intersections) {
+            *res += p.p;
+        }
+        *res *= (double)1/intersections.size();
+        return res;
+    }
+    return NULL;
+}
