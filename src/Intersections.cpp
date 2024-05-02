@@ -69,6 +69,7 @@ Vec2* estimate_collosion_point(Rigidbody& a, Rigidbody& b) {
 
         for (auto p : intersections) {
             *res += p.p;
+            cout << p.p << endl;
         }
         *res *= (double)1/intersections.size();
         return res;

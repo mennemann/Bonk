@@ -11,6 +11,10 @@ using namespace std;
 struct intersection{
     Rigidbody *c1, *c2;
     Vec2 p;
+
+    bool operator==(intersection const& other) {
+        return c1 == other.c1 && c2 == other.c2 && p == other.p;
+    }
 };
 
 vector<intersection> get_intersections(vector<Rigidbody*>& objects);
